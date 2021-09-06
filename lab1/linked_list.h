@@ -33,7 +33,7 @@ void linked_list_append(node *head, int val);
  * In case of out-of-bound index, your code should do nothing in all
  * functions. As for remove, if the value doesn't exist, do nothing.
  *
- * For get, if index out of bound, return INT_MIN.
+ * For get, if index out of bound, return INT_MIN (you will need to include "limit.h" header file).
  * For search, if value not exists. return -1.
  * For search_all, if value not exists, return empty list.
  */
