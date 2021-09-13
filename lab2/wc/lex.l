@@ -1,4 +1,3 @@
-/****declarations****/
 %{
     // just let you know you have macros!
     // C macro tutorial in Chinese: http://c.biancheng.net/view/446.html
@@ -13,16 +12,11 @@
 letter [a-zA-Z]
 
 %%
-
-/****translation rules****/
-
 {letter}+ { words++; chars+=strlen(yytext); }
 \n { chars++; lines++; }
 . { chars++; }
 
 %%
-
-/****auxilirary functions****/
 int main(int argc, char **argv){
     char *file_path;
     if(argc < 2){
@@ -35,10 +29,11 @@ int main(int argc, char **argv){
             return EXIT_FAIL;
         }
         yylex();
+	printf("%-8s%-8s%-8s%s\n", "#lines", "#words", "#chars", "file path");
         printf("%-8d%-8d%-8d%s\n", lines, words, chars, file_path);
         return EXIT_OK;
     } else{
-        fputs("Too much arguments!\n", stderr);
+        fputs("Too many arguments! Expected: 2.\n", stderr);
         return EXIT_FAIL;
     }
 }
