@@ -9,19 +9,11 @@
 letter [a-zA-Z]
 letter_ {letter}|_
 digit [0-9]
-charLiteral \'(\\.|[^'\\])*\'
 
 %%
-int {}
-char {}
-return {}
-while {}
-if {}
-else {}
-{charLiteral} {}
 {letter_}({letter_}|{digit})* { identifiers++; printf("line %d: %s\n", lines, yytext);} 
-\n { lines++; }
-[\t\r ]+ {}
+\n {}
+[\t\r ]+ { /* does not when seeing white spaces except new line */ }
 . { /* a final rule that does nothing when seeing any character but new line */ }
 <<EOF>> { printf("There are %d occurrences of valid identifiers\n", identifiers); yyterminate(); }
 
