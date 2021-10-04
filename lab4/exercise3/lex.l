@@ -12,6 +12,7 @@ int 0|[1-9][0-9]*
 frac \.[0-9]+
 exp [Ee][+-]?[0-9]+
 number -?{int}{frac}?{exp}?
+fakeInt 0{int}
 
 empty [ \n\r\t]
 
@@ -30,7 +31,7 @@ empty [ \n\r\t]
 
 {string} { return STRING; }
 {number} { return NUMBER; }
-
+{fakeInt} { return FAKEINT; }
 {empty} {}
 
 . { printf("lexical error: %s\n", yytext); }

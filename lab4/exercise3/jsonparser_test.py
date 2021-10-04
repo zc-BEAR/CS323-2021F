@@ -29,15 +29,17 @@ def check_jsonchecker_fail_syntaxonly():
         out = jsonparser_output(failjson)
         if ('lexical error' in out) or ('_EXCLUDE' in failjson.name):
             continue
+        m = re.match(r'^syntax(.*?)recovered$', out)
+        recovered += bool(m)
+        total += 1
+        if m: 
+            continue
         print(f'For file {failjson.name}:')
         print('-'*24)
         print(open(failjson).read())
         print('-'*80)
         print(out)
         print('#'*80)
-        m = re.match(r'^syntax(.*?)recovered$', out)
-        recovered += bool(m)
-        total += 1
     print(f'Recovered/Total: {recovered}/{total}')
 
 

@@ -1,0 +1,7 @@
+E -> e + T / T
+=>  E -> +TE'
+    E' -> +TE' / epsilon
+
+T -> T*F / F
+=>  T -> FT'
+    T' -> *FT'/ epsilon
