@@ -13,6 +13,7 @@ F -> a
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Stack;
 
 public class Parser {
     static ArrayList<Character> nonterminals = new ArrayList<>();
@@ -39,6 +40,32 @@ public class Parser {
 
     public static void procedure(Character nonterminal) throws Exception {
         // write your code here
+        Stack<Character> stack = new Stack<>();
+        stack.push('$');
+        stack.push(nonterminal);
+        while (!stack.peek().equals('$')) {
+            Character x = stack.peek();
+            int ix = nonterminals.indexOf(x);
+            int iy = terminals.indexOf(inputBuffer.get(0));
+            if (ix == -1 || iy == -1){
+                System.out.println("error");
+                System.exit(0);
+            }
+            if (x.equals(inputBuffer.get(0))){
+                stack.pop();
+                inputBuffer.remove(0);
+            }else if (terminals.contains(x) || parsingTable[ix][iy] == null){
+                System.out.println("error");
+                System.exit(0);
+            }else if (parsingTable[ix][iy] != null){
+                productionsToApply.add(parsingTable[ix][iy]);
+                stack.pop();
+                for( int i = parsingTable[ix][iy].body.size()-1; i > -1;i--){
+                    stack.push(parsingTable[ix][iy].body.get(i));
+                }
+            }
+        }
+
     }
 
     public static void populateParsingTable() {
